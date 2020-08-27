@@ -109,6 +109,9 @@ public class TwoSum {
 				right--;
 			}
 		}
+
+		quickSort(arr, left, hi);
+		quickSort(arr, lo, right);
 		
 	}
 	
