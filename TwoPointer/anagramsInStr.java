@@ -13,8 +13,9 @@ public class anagramsInStr {
     static class Solution {
         public List<Integer> findAnagrams(String s, String p) {
 
+            List<Integer> ans = new ArrayList<>();
             if(s.length()<p.length()){
-                return null;
+                return ans;
             }
 
             int[] fm1 = new int[26];
@@ -25,8 +26,8 @@ public class anagramsInStr {
                 fm2[s.charAt(i) - 'a']++;
             }
 
-            List<Integer> ans = new ArrayList<>();
-            for(int i=0;i<s.length()-p.length();i++){
+            int i;
+            for(i=0;i<s.length()-p.length();i++){
 
                 if(Arrays.equals(fm1,fm2)){
                     ans.add(i);
@@ -36,6 +37,11 @@ public class anagramsInStr {
                 fm2[s.charAt(i) - 'a']--;
 
             }
+
+            if(Arrays.equals(fm1,fm2)){
+                ans.add(i);
+            }
+
             return ans;
         }
     }
