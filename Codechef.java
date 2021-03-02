@@ -1,5 +1,5 @@
 import java.io.*;
-import java.nio.Buffer;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Codechef {
@@ -8,6 +8,20 @@ public class Codechef {
         FastReader fr = new FastReader();
         int n = fr.nextInt();
         System.out.println(n);
+
+        Print<HashMap<String,Integer>> p = new Print();
+
+        HashMap<String,Integer> map = new HashMap<>();
+        map.put("Hey",1);
+        map.put("this",1);
+        map.put("is",1);
+        map.put("Abhinav",2);
+        p.print(map);
+        p.println(150);
+        p.println("Abhinav");
+
+        int[] arr = {12,5,6,8,6,56,0};
+        p.print(arr);
     }
 
     static class FastReader {
@@ -51,6 +65,30 @@ public class Codechef {
                 e.printStackTrace();
             }
             return str;
+        }
+    }
+
+    static class Print<V>{
+        void println(String s){
+            System.out.println(s);
+        }
+        void print(String s){
+            System.out.print(s);
+        }
+        void println(int num){
+            System.out.println(num);
+        }
+        void print(int num){
+            System.out.print(num);
+        }
+        void print(int[] arr){
+            print("[");
+            for(int i=0;i<arr.length-1;i++)
+                print(arr[i] + ", ");
+            print(arr[arr.length-1] + "]");
+        }
+        void print(V v){
+            System.out.println(v);
         }
     }
 
