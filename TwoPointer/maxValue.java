@@ -13,33 +13,32 @@ public class maxValue {
         while (tc-- != 0) {
 
             int n = scn.nextInt();
-            int[] arr= new int[n];
-            for(int i=0;i<n;i++){
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
                 arr[i] = scn.nextInt();
             }
-//            Arrays.sort(arr);
-
-            System.out.println(arr[arr.length-1] * arr[arr.length-2]
-                    + Math.abs(arr[arr.length-1] - arr[arr.length-2]));
-            int i=0;
-            int j=arr.length-1;
+            Arrays.sort(arr);
+            int mx1 = arr[arr.length - 1];
+            int mx2 = arr[arr.length - 2];
+            int mn1 = arr[0];
+            int mn2 = arr[1];
             long val = Integer.MIN_VALUE;
-            while (i<j){
 
-                long currVal = (long) arr[i] * arr[j] + Math.abs(arr[i]-arr[j]);
-//                if(val < currVal){
-//                    i++;
-//                }else{
-//                    j--;
-//                }
-                val = Math.max(val,currVal);
+            for(int num :arr){
 
-                if(arr[i] < arr[j])
-                    i++;
-                else
-                    j--;
+                if(num == mx1){
+                    val = Math.max(val,num*mx2+Math.abs(num-mx2));
+                }else{
+                    val = Math.max(val,num*mx1 + Math.abs(num-mx1));
+                }
 
+                if(num == mn1){
+                    val = Math.max(val,num * mn2 + Math.abs(num - mn2));
+                }else{
+                    val = Math.max(val,num*mn1+Math.abs(num-mn1));
+                }
             }
+
             System.out.println(val);
         }
 
