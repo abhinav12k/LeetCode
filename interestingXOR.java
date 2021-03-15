@@ -11,54 +11,29 @@ public class interestingXOR {
         while (tc-- != 0) {
 
             int c = scn.nextInt();
-            int bn = 0;
-            int multi = 1;
-            int size = 0;
-            while (c != 0) {
+            long a=0,b=0;
+            boolean fl = false;
 
-                int rem = c % 2;
-                bn = bn + rem * multi;
-                multi *= 10;
-                c = c / 2;
-                size++;
-            }
-//            System.out.println(size);
-            int lt = size;
-            int a = 0;
-            int b = 0;
-            multi = 1;
-            while (lt > 1) {
+            for(int i=35;i>=0;i--){
 
-                int rem = bn % 10;
-                if (rem == 1) {
-                    a = a + 0 * multi;
-                } else {
-                    a = a + 1 * multi;
+                long val = 1L << i;
+                if((c & val) > 0){
+                    if(!fl){
+                        a|=val;
+                        fl = true;
+                    }else{
+                        b|=val;
+                    }
+                }else{
+                    if(val<=c) {
+                        a |= val;
+                        b |= val;
+                    }
                 }
-                b = b + 1 * multi;
-                multi *= 10;
-                bn = bn/10;
-                lt--;
+//                System.out.println("*********");
+//                System.out.println(val+"\n"+a+"\n"+b);
             }
-            a = a + multi*1;
-//            System.out.println("a: "+a);
-//            System.out.println("b: "+b);
-
-            //convert to decimal
-            int aDecimal = 0;
-            int bDecimal = 0;
-            multi = 1;
-            while(a!=0){
-
-                int rem = a%10;
-                int rem1 = b%10;
-                bDecimal = bDecimal + rem1 * multi;
-                aDecimal = aDecimal + rem * multi;
-                multi*=2;
-                b=b/10;
-                a=a/10;
-            }
-            System.out.println(aDecimal*bDecimal);
+            System.out.println(a*b);
         }
 
     }
