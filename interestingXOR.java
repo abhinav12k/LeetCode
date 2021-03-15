@@ -14,7 +14,7 @@ public class interestingXOR {
             long a=0,b=0;
             boolean fl = false;
 
-            for(int i=35;i>=0;i--){
+            for(int i=30;i>=0;i--){
 
                 long val = 1L << i;
                 if((c & val) > 0){

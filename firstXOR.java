@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class firstXOR {
@@ -9,27 +11,28 @@ public class firstXOR {
         int tc = scn.nextInt();
         while(tc--!=0){
 
-            int c= scn.nextInt();
-//            int d = 1;
-//            while(Math.pow(2,d) <= c){
-//                d++;
-//            }
-            int d = (int)Math.ceil(Math.log(c) / Math.log(2));
-            int bound = (int)Math.pow(2,d);
-            long a = bound/2 - 1,b=a;
-            long maxProd = 0;
-            while(a<bound){
+            int c = scn.nextInt();
+            long a = 0, b = 0;
+            int j = 0;
+            Deque<Long> dq = new LinkedList<>();
+            while (c != 0) {
+                long val = 1L << j;
 
-                while(b<bound){
-
-                    if((a ^ b) == c){
-                        maxProd = Math.max(maxProd,a*b);
-                    }
-                    b++;
+                if((c & 1) == 1){
+                    dq.add(val);
+                }else{
+                    a |= val;
+                    b |= val;
                 }
-                a++;
+                c >>= 1;
+                j++;
+
             }
-            System.out.println(maxProd);
+            if(!dq.isEmpty())
+                a|=dq.removeLast();
+            while (!dq.isEmpty())
+                b|=dq.removeLast();
+            System.out.println(a*b);
         }
 
     }
