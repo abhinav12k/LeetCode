@@ -6,8 +6,6 @@ import java.util.StringTokenizer;
 
 class Codechef {
     void solve(int TC) throws Exception {
-
-
     }
 
 
