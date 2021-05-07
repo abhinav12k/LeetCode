@@ -1,4 +1,4 @@
-package KadaneAlgo;
+package HackWithInfyGuidedPath.KadaneAlgo;
 
 public class maxSumRect {
 
