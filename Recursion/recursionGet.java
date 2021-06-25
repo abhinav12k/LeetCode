@@ -10,6 +10,8 @@ public class recursionGet {
         System.out.println(getSS("abc"));
         System.out.println(getSSASCII("abc"));
         System.out.println(getKPC("23"));
+        System.out.println(coinToss(3));
+        System.out.println(permutation("abc"));
     }
 
     private static ArrayList<String> getSS(String str){
@@ -99,6 +101,54 @@ public class recursionGet {
 
         }
 
+    }
+
+    private static ArrayList<String> coinToss(int n){
+
+        if(n==0){
+            ArrayList<String> br = new ArrayList<>();
+            br.add("");
+            return br;
+        }
+
+        ArrayList<String> rr = coinToss(n-1);
+
+        ArrayList<String> mr = new ArrayList<>();
+
+        for(String r: rr){
+            mr.add("H"+r);
+            mr.add("T"+r);
+        }
+
+        return mr;
+    }
+
+    private static ArrayList<String> permutation(String str){
+
+        if(str.length()==1){
+            ArrayList<String> br = new ArrayList<>();
+            br.add(str);
+            return br;
+        }
+
+        char ch = str.charAt(0);
+        String ros = str.substring(1);
+
+        ArrayList<String> rr = permutation(ros);
+
+        ArrayList<String> mr = new ArrayList<>();
+
+        for(String r: rr){
+
+            for(int i=0;i<=r.length();i++){
+
+                String res = r.substring(0,i) + ch + r.substring(i);
+                mr.add(res);
+
+            }
+
+        }
+        return mr;
     }
 
 }
