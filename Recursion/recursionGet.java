@@ -12,6 +12,9 @@ public class recursionGet {
         System.out.println(getKPC("23"));
         System.out.println(coinToss(3));
         System.out.println(permutation("abc"));
+        System.out.println(mazePath(0,0,2,2));
+        System.out.println(mazePathDiagonal(0,0,2,2));
+        System.out.println(mazePathDiagMM(0,0,2,2));
     }
 
     private static ArrayList<String> getSS(String str){
@@ -147,6 +150,99 @@ public class recursionGet {
 
             }
 
+        }
+        return mr;
+    }
+
+    private static ArrayList<String> mazePath(int cr,int cc,int fr,int fc){
+
+        if(cr==fr && cc == fc){
+            ArrayList<String> br = new ArrayList<>();
+            br.add("");
+            return br;
+        }
+
+        if(cr>fr || cc > fc){
+            return new ArrayList<>();
+        }
+
+        ArrayList<String> mr = new ArrayList<>();
+
+        ArrayList<String> rrh = mazePath(cr,cc+1,fr,fc);
+
+        for(String s: rrh)
+            mr.add("H"+s);
+
+        ArrayList<String> rrv = mazePath(cr+1,cc,fr,fc);
+        for(String s: rrv)
+            mr.add("V"+s);
+
+        return mr;
+    }
+
+    private static ArrayList<String> mazePathDiagonal(int cr,int cc,int fr,int fc){
+
+        if(cr==fr && cc == fc){
+            ArrayList<String> br = new ArrayList<>();
+            br.add("");
+            return br;
+        }
+
+        if(cr> fr || cc > fc){
+            return new ArrayList<>();
+        }
+
+        ArrayList<String> mr = new ArrayList<>();
+
+        //moving horizontally
+        ArrayList<String> rrh = mazePathDiagonal(cr,cc+1,fr,fc);
+
+        for(String s: rrh)
+            mr.add("H"+s);
+
+        ArrayList<String> rrv = mazePathDiagonal(cr+1,cc,fr,fc);
+
+        for(String s: rrv)
+            mr.add("V"+s);
+
+        ArrayList<String> rrd = mazePathDiagonal(cr+1,cc+1,fr,fc);
+
+        for(String s: rrd)
+            mr.add("D"+s);
+
+        return mr;
+    }
+
+    //Multiple moves
+    private static ArrayList<String> mazePathDiagMM(int cr,int cc,int fr,int fc){
+
+        if(cr==fr && cc==fc){
+            ArrayList<String> br = new ArrayList<>();
+            br.add("");
+            return br;
+        }
+
+        ArrayList<String> mr = new ArrayList<>();
+
+        //horizontal move
+        for(int move=1;move+cc<=fc;move++){
+            ArrayList<String> rrh = mazePathDiagMM(cr,cc+move,fr,fc);
+            for(String s: rrh)
+                mr.add("H"+move+s);
+        }
+
+        //vertical move
+        for(int move = 1;move+cr<=fr;move++){
+            ArrayList<String> rrv = mazePathDiagMM(cr+move,cc,fr,fc);
+            for(String s: rrv)
+                mr.add("V"+move+s);
+        }
+
+        //diagonal move
+        for(int move = 1;move+cr<=fr && move+cc<=fc; move++){
+            ArrayList<String> rrd = mazePathDiagMM(cr+move,cc+move,fr,fc);
+            for(String s: rrd)
+                mr.add("D"+move+s);
         }
         return mr;
     }
