@@ -87,7 +87,7 @@ public class recursionGet {
         return mr;
     }
 
-    private static String getStrings(char c) {
+    public static String getStrings(char c) {
 
         switch (c) {
 
