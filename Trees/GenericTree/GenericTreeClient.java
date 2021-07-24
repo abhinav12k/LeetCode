@@ -28,8 +28,18 @@ public class GenericTreeClient {
         gt.levelOrderLineWise();
 
         System.out.println();
-        gt.levelOrderLineWise2();
+//        gt.levelOrderLineWise2();
 //        gt.levelOrderZigZag();
+
+//        gt.removeLeaves();
+
+//        gt.levelOrderLineWise();
+
+//        gt.linearizeTree();
+//        gt.levelOrderLineWise2();
+
+        gt.linearize2();
+        gt.levelOrderLineWise2();
     }
 
 }

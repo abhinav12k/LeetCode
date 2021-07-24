@@ -325,6 +325,70 @@ public class GenericTree {
 
     }
 
+    public void removeLeaves(){
+        removeLeaves(root);
+    }
 
+    private void removeLeaves(Node root){
+
+        for(int i = root.children.size()-1;i>=0;i--){
+            Node child = root.children.get(i);
+            if(child.children.size()==0)
+                root.children.remove(i);
+        }
+
+        for(Node child: root.children)
+            removeLeaves(child);
+
+    }
+
+    public void linearizeTree(){
+        linearizeTree(root);
+    }
+
+    private void linearizeTree(Node root){
+
+        for(Node child: root.children){
+            linearizeTree(child);
+        }
+
+        while(root.children.size() > 1){
+            Node lastNode = root.children.remove(root.children.size()-1);
+            Node secondLastNode = root.children.get(root.children.size()-1);
+            Node secondLastNodeTail = getTail(secondLastNode);
+            secondLastNodeTail.children.add(lastNode);
+        }
+
+    }
+
+    private Node getTail(Node root){
+
+        while(root.children.size() == 1){
+            root = root.children.get(0);
+        }
+
+        return root;
+    }
+
+    public void linearize2(){
+        linearize2(root);
+    }
+
+    private Node linearize2(Node root){
+
+        if(root.children.size() == 0){
+            return root;
+        }
+
+        Node lastNodeTail = linearize2(root.children.get(root.children.size()-1));
+        while(root.children.size() > 1){
+            Node lastNode = root.children.remove(root.children.size()-1);
+            Node secondLastNode = root.children.get(root.children.size()-1);
+            Node secondLastNodeTail = linearize2(secondLastNode);
+            secondLastNodeTail.children.add(lastNode);
+        }
+
+        return lastNodeTail;
+    }
 
 }
