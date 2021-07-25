@@ -4,11 +4,11 @@ import java.util.*;
 
 public class GenericTree {
 
-    private class Node{
+    private class Node {
         int data;
         ArrayList<Node> children;
 
-        private Node(int data){
+        private Node(int data) {
             this.data = data;
             children = new ArrayList<>();
         }
@@ -18,66 +18,66 @@ public class GenericTree {
     private Node root;
     private int size;
 
-    public GenericTree(){
+    public GenericTree() {
         Scanner scn = new Scanner(System.in);
-        this.root = takeInput(scn,null,0);
+        this.root = takeInput(scn, null, 0);
     }
 
-    private Node takeInput(Scanner scn,Node parent,int ithChild){
+    private Node takeInput(Scanner scn, Node parent, int ithChild) {
 
-        if(parent==null){
+        if (parent == null) {
             System.out.println("Enter the data for root Node - ");
-        }else{
-            System.out.println("Enter the data for "+ithChild+"th Child of "+parent.data);
+        } else {
+            System.out.println("Enter the data for " + ithChild + "th Child of " + parent.data);
         }
 
         int nodeData = scn.nextInt();
         Node nn = new Node(nodeData);
         this.size++;
 
-        System.out.println("Enter the number of children for "+nodeData);
+        System.out.println("Enter the number of children for " + nodeData);
         int n = scn.nextInt();
 
-        for(int i=0;i<n;i++){
-            Node child = takeInput(scn,nn,i+1);
+        for (int i = 0; i < n; i++) {
+            Node child = takeInput(scn, nn, i + 1);
             nn.children.add(child);
         }
 
         return nn;
     }
 
-    public void display(){
+    public void display() {
         display(root);
     }
 
-    private void display(Node root){
+    private void display(Node root) {
 
-        String ans = root.data+" => ";
-        for(int i=0;i<root.children.size();i++){
-            ans+=root.children.get(i).data+", ";
+        String ans = root.data + " => ";
+        for (int i = 0; i < root.children.size(); i++) {
+            ans += root.children.get(i).data + ", ";
         }
-        ans+=", END";
+        ans += ", END";
 
         System.out.println(ans);
 
-        for(int i=0;i<root.children.size();i++)
+        for (int i = 0; i < root.children.size(); i++)
             display(root.children.get(i));
 
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.size;
     }
 
-    public int calculateSize(){
+    public int calculateSize() {
         return calculateSize(root);
     }
 
-    private int calculateSize(Node root){
+    private int calculateSize(Node root) {
 
         int totalSize = 0;
 
-        for(Node child: root.children){
+        for (Node child : root.children) {
             int childSize = calculateSize(child);
 
             totalSize += childSize;
@@ -86,73 +86,73 @@ public class GenericTree {
         return totalSize + 1;   //added one for root element
     }
 
-    public int getMax(){
+    public int getMax() {
         return getMax(root);
     }
 
-    private int getMax(Node root){
+    private int getMax(Node root) {
         int totalMax = root.data;
 
-        for(Node child: root.children){
+        for (Node child : root.children) {
             int childMax = getMax(child);
-            if(totalMax < childMax)
+            if (totalMax < childMax)
                 totalMax = childMax;
         }
         return totalMax;
     }
 
-    public boolean find(int val){
-        return find(root,val);
+    public boolean find(int val) {
+        return find(root, val);
     }
 
-    private boolean find(Node root,int val){
+    private boolean find(Node root, int val) {
 
-        if(root.data == val)
+        if (root.data == val)
             return true;
 
-        for(Node child: root.children){
-            boolean found = find(child,val);
-            if(found)
+        for (Node child : root.children) {
+            boolean found = find(child, val);
+            if (found)
                 return true;
         }
         return false;
     }
 
-    public int height(){
+    public int height() {
         return height(root);
     }
 
-    private int height(Node root){
+    private int height(Node root) {
         int totalHeight = -1;
-        for(Node child: root.children){
+        for (Node child : root.children) {
 
             int childHeight = height(child);
-            if(totalHeight < childHeight)
+            if (totalHeight < childHeight)
                 totalHeight = childHeight;
 
         }
-        return totalHeight+1;
+        return totalHeight + 1;
     }
 
-    public void mirror(){
+    public void mirror() {
         mirror(root);
     }
 
-    private void mirror(Node root){
+    private void mirror(Node root) {
 
-        for(Node child: root.children){
+        for (Node child : root.children) {
             mirror(child);
         }
 
-        int left=0;
-        int right = root.children.size()-1;
-        while(left<right){
+        int left = 0;
+        int right = root.children.size() - 1;
+        while (left < right) {
 
             Node leftChild = root.children.get(left);
             Node rightChild = root.children.get(right);
 
-            root.children.set(right,leftChild);
-            root.children.set(left,rightChild);
+            root.children.set(right, leftChild);
+            root.children.set(left, rightChild);
 
             left++;
             right--;
@@ -160,90 +160,90 @@ public class GenericTree {
 
     }
 
-    public void printLevel(int level){
-        printLevel(root,0,level);
+    public void printLevel(int level) {
+        printLevel(root, 0, level);
     }
 
-    private void printLevel(Node root,int count,int level){
+    private void printLevel(Node root, int count, int level) {
 
-        if(count == level){
+        if (count == level) {
             System.out.println(root.data);
             return;
         }
 
-        for(Node child: root.children)
-            printLevel(child,count+1,level);
+        for (Node child : root.children)
+            printLevel(child, count + 1, level);
 
     }
 
-    public void preOrder(){
+    public void preOrder() {
         preOrder(root);
     }
 
-    private void preOrder(Node root){
+    private void preOrder(Node root) {
 
-        System.out.print(root.data+"  ");
+        System.out.print(root.data + "  ");
 
-        for(Node child: root.children)
+        for (Node child : root.children)
             preOrder(child);
 
     }
 
-    public void postOrder(){
+    public void postOrder() {
         postOrder(root);
     }
 
-    private void postOrder(Node root){
-        for(Node child: root.children){
+    private void postOrder(Node root) {
+        for (Node child : root.children) {
             postOrder(child);
         }
-        System.out.print(root.data+" ");
+        System.out.print(root.data + " ");
     }
 
-    public void levelOrder(){
+    public void levelOrder() {
         levelOrder(root);
     }
 
-    private void levelOrder(Node root){
+    private void levelOrder(Node root) {
 
         Queue<Node> queue = new LinkedList<>();
 
         queue.add(root);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
 
             Node node = queue.poll();
 
-            System.out.print(node.data+" ");
+            System.out.print(node.data + " ");
 
-            for(Node child: node.children)
+            for (Node child : node.children)
                 queue.add(child);
 
         }
         System.out.print(".");
     }
 
-    public void levelOrderLineWise(){
+    public void levelOrderLineWise() {
         levelOrderLineWise(root);
     }
 
-    private void levelOrderLineWise(Node root){
+    private void levelOrderLineWise(Node root) {
 
         Queue<Node> queue = new ArrayDeque<>();
         queue.add(root);
 
         Queue<Node> childQueue = new ArrayDeque<>();
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
 
             Node parent = queue.remove();
 
-            System.out.print(parent.data+" ");
+            System.out.print(parent.data + " ");
 
-            for(Node child: parent.children)
+            for (Node child : parent.children)
                 childQueue.add(child);
 
-            if(queue.isEmpty()){
+            if (queue.isEmpty()) {
                 queue = childQueue;
                 childQueue = new ArrayDeque<>();
                 System.out.println();   // to show that one level is completed
@@ -253,68 +253,68 @@ public class GenericTree {
 
     }
 
-    public void levelOrderLineWise2(){
+    public void levelOrderLineWise2() {
         levelOrderLineWise2(root);
     }
 
-    private void levelOrderLineWise2(Node root){
+    private void levelOrderLineWise2(Node root) {
 
         LinkedList<Node> queue = new LinkedList<>();
         queue.add(root);
         queue.add(null);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
 
             Node parent = queue.removeFirst();
 
-            if(parent == null){
+            if (parent == null) {
                 System.out.println();
 
-                if(queue.isEmpty()){
+                if (queue.isEmpty()) {
                     break;
                 }
 
                 queue.add(null);
                 continue;
-            }else{
-                for(Node child: parent.children)
+            } else {
+                for (Node child : parent.children)
                     queue.add(child);
             }
 
-            System.out.print(parent.data+" ");
+            System.out.print(parent.data + " ");
 
         }
 
     }
 
-    public void levelOrderZigZag(){
+    public void levelOrderZigZag() {
         levelOrderZigZag(root);
     }
 
-    private void levelOrderZigZag(Node root){
+    private void levelOrderZigZag(Node root) {
 
         Stack<Node> stack = new Stack<>();
         stack.add(root);
 
         Stack<Node> childStack = new Stack<>();
         int ct = 0;
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
 
             Node parent = stack.pop();
 
-            System.out.print(parent.data+" ");
+            System.out.print(parent.data + " ");
 
-            if(ct%2==1){
+            if (ct % 2 == 1) {
                 //add children in reverse order to print in reverse
-                for(int i=parent.children.size()-1;i>=0;i--)
+                for (int i = parent.children.size() - 1; i >= 0; i--)
                     childStack.add(parent.children.get(i));
-            }else{
+            } else {
                 //add children from front
-                for(Node child: parent.children)
+                for (Node child : parent.children)
                     childStack.add(child);
             }
 
-            if(stack.isEmpty()){
+            if (stack.isEmpty()) {
                 ct++;
                 stack = childStack;
                 childStack = new Stack<>();
@@ -325,70 +325,202 @@ public class GenericTree {
 
     }
 
-    public void removeLeaves(){
+    public void removeLeaves() {
         removeLeaves(root);
     }
 
-    private void removeLeaves(Node root){
+    private void removeLeaves(Node root) {
 
-        for(int i = root.children.size()-1;i>=0;i--){
+        for (int i = root.children.size() - 1; i >= 0; i--) {
             Node child = root.children.get(i);
-            if(child.children.size()==0)
+            if (child.children.size() == 0)
                 root.children.remove(i);
         }
 
-        for(Node child: root.children)
+        for (Node child : root.children)
             removeLeaves(child);
 
     }
 
-    public void linearizeTree(){
+    public void linearizeTree() {
         linearizeTree(root);
     }
 
-    private void linearizeTree(Node root){
+    private void linearizeTree(Node root) {
 
-        for(Node child: root.children){
+        for (Node child : root.children) {
             linearizeTree(child);
         }
 
-        while(root.children.size() > 1){
-            Node lastNode = root.children.remove(root.children.size()-1);
-            Node secondLastNode = root.children.get(root.children.size()-1);
+        while (root.children.size() > 1) {
+            Node lastNode = root.children.remove(root.children.size() - 1);
+            Node secondLastNode = root.children.get(root.children.size() - 1);
             Node secondLastNodeTail = getTail(secondLastNode);
             secondLastNodeTail.children.add(lastNode);
         }
 
     }
 
-    private Node getTail(Node root){
+    private Node getTail(Node root) {
 
-        while(root.children.size() == 1){
+        while (root.children.size() == 1) {
             root = root.children.get(0);
         }
 
         return root;
     }
 
-    public void linearize2(){
+    public void linearize2() {
         linearize2(root);
     }
 
-    private Node linearize2(Node root){
+    private Node linearize2(Node root) {
 
-        if(root.children.size() == 0){
+        if (root.children.size() == 0) {
             return root;
         }
 
-        Node lastNodeTail = linearize2(root.children.get(root.children.size()-1));
-        while(root.children.size() > 1){
-            Node lastNode = root.children.remove(root.children.size()-1);
-            Node secondLastNode = root.children.get(root.children.size()-1);
+        Node lastNodeTail = linearize2(root.children.get(root.children.size() - 1));
+        while (root.children.size() > 1) {
+            Node lastNode = root.children.remove(root.children.size() - 1);
+            Node secondLastNode = root.children.get(root.children.size() - 1);
             Node secondLastNodeTail = linearize2(secondLastNode);
             secondLastNodeTail.children.add(lastNode);
         }
 
         return lastNodeTail;
+    }
+
+    public ArrayList<Integer> nodeToRootPath(int data) {
+        return nodeToRoot(root, data);
+    }
+
+    private ArrayList<Integer> nodeToRoot(Node root, int data) {
+
+        if (root.data == data) {
+            ArrayList<Integer> br = new ArrayList<>();
+            br.add(data);
+            return br;
+        }
+
+        for (Node child : root.children) {
+            ArrayList<Integer> rr = nodeToRoot(child, data);
+            if (rr.size() > 0) {
+                rr.add(root.data);
+                return rr;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    public int lowestCommonAncestor(int data1,int data2){
+        return lowestCommonAncestor(root,data1,data2);
+    }
+
+    private int lowestCommonAncestor(Node root,int data1,int data2){
+
+        ArrayList<Integer> path1 = nodeToRoot(root,data1);
+        ArrayList<Integer> path2 = nodeToRoot(root,data2);
+
+        int i = path1.size()-1;
+        int j = path2.size()-1;
+        while(i>=0 && j>=0 && path1.get(i) == path2.get(j)){
+            i--;
+            j--;
+        }
+        i++;
+        j++;
+        return path1.get(i);
+    }
+
+    public int distanceBetweenNodes(int data1,int data2){
+        return distanceBetweenNodes(root,data1,data2);
+    }
+
+    private int distanceBetweenNodes(Node root,int data1, int data2){
+
+        ArrayList<Integer> path1 = nodeToRoot(root,data1);
+        ArrayList<Integer> path2 = nodeToRoot(root,data2);
+
+        int i=path1.size()-1;
+        int j = path2.size()-1;
+
+        while (i>=0 && j>=0 && path1.get(i) == path2.get(j)){
+            i--;
+            j--;
+        }
+        i++;
+        j++;
+
+        return i+j;
+    }
+
+    public boolean areTreesSimilar(Node tree){
+        return areTreesSimilar(root,tree);
+    }
+
+    private boolean areTreesSimilar(Node root, Node root2){
+
+        if(root.children.size() != root2.children.size())
+            return false;
+
+        for(int i=0;i<root.children.size();i++){
+            Node child1 = root.children.get(i);
+            Node child2 = root2.children.get(i);
+            if(!areTreesSimilar(child1,child2))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isTreeSymmetric(){
+        return isTreeSymmetric(root);
+    }
+
+    private boolean areTreeMirror(Node root,Node root2){
+
+        if(root.children.size() != root2.children.size()){
+            return false;
+        }
+
+        for(int i=0;i<root.children.size();i++){
+            int j = root.children.size()-1;
+            Node child = root.children.get(i);
+            Node child2 = root2.children.get(j);
+            if(!areTreeMirror(child,child2))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isTreeSymmetric(Node root){
+        return areTreeMirror(root,root);
+    }
+
+    public void predecessorNSuccessor(int data){
+        predecessorNSuccessor(root,data);
+    }
+
+    int state = 0;
+    int predecessor=0;
+    int successor = 0;
+    private void predecessorNSuccessor(Node root,int data){
+
+        if(state == 0){
+            if(root.data == data){
+                state = 1;
+            }else{
+                predecessor = root.data;
+            }
+        }else if (state == 1){
+            successor = root.data;
+            state = 2;
+        }
+
+        for(Node child: root.children)
+            predecessorNSuccessor(child,data);
+
     }
 
 }

@@ -25,7 +25,7 @@ public class GenericTreeClient {
 
         System.out.println();
 //        gt.levelOrder();
-        gt.levelOrderLineWise();
+//        gt.levelOrderLineWise();
 
         System.out.println();
 //        gt.levelOrderLineWise2();
@@ -38,8 +38,14 @@ public class GenericTreeClient {
 //        gt.linearizeTree();
 //        gt.levelOrderLineWise2();
 
-        gt.linearize2();
-        gt.levelOrderLineWise2();
+//        gt.linearize2();
+//        gt.levelOrderLineWise2();
+
+        System.out.println(gt.nodeToRootPath(30));
+
+        System.out.println(gt.lowestCommonAncestor(70,110));
+
+        System.out.println(gt.distanceBetweenNodes(70,110));
     }
 
 }
