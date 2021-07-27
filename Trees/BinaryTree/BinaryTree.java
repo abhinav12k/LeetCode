@@ -305,4 +305,28 @@ public class BinaryTree {
         return currSum;
     }
 
+    public boolean isSymmetric(){
+        return mirror(root,root);
+    }
+
+    private boolean mirror(Node node1,Node node2){
+
+        if(node1!=null && node2==null){
+            return true;
+        }else if(node1 == null || node2 == null){
+            return false;
+        }else if(node1.data != node2.data){
+            return false;
+        }
+
+        boolean isLeftChildMirror = mirror(node1.leftChild,node2.rightChild);
+        if(!isLeftChildMirror)
+            return false;
+        boolean isRightChildMirror = mirror(node1.rightChild,node2.leftChild);
+        if(!isRightChildMirror)
+            return false;
+
+        return true;
+    }
+
 }
