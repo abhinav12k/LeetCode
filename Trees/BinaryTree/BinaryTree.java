@@ -1,7 +1,6 @@
 package Trees.BinaryTree;
 
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -327,6 +326,46 @@ public class BinaryTree {
             return false;
 
         return true;
+    }
+
+    public ArrayList<Integer> getCousins(int val){
+        return getCousins(root,val);
+    }
+
+    private ArrayList<Integer> getCousins(Node root,int val){
+
+        if(root == null || root.data == val)
+            return new ArrayList<>();
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        boolean flag = false;
+
+        while(!queue.isEmpty() && !flag){
+            int n = queue.size();
+            while(n-->0){
+                Node curr = queue.poll();
+                if((curr.leftChild!=null && curr.leftChild.data == val) && (curr.rightChild!=null && curr.rightChild.data == val))
+                    flag = true;
+                else{
+                    if(curr.leftChild!=null && curr.leftChild.data != val)
+                        queue.add(curr.leftChild);
+                    if(curr.rightChild!=null && curr.rightChild.data != val)
+                        queue.add(curr.rightChild);
+                }
+            }
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        if(flag){
+            while(!queue.isEmpty()){
+                list.add(queue.poll().data);
+            }
+        }
+
+        return list;
     }
 
 }

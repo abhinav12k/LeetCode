@@ -29,5 +29,7 @@ public class BinaryTreeClient {
         System.out.println();
 
         System.out.println(bt.maxSubTreeSum());
+
+        System.out.println(bt.getCousins(40));
     }
 }
