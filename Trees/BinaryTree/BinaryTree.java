@@ -51,6 +51,35 @@ public class BinaryTree {
         return node;
     }
 
+    //BT using preorder and inorder
+    public void construct(int[] preOrder,int[] inOrder){
+        this.root = construct(preOrder,0,preOrder.length-1,inOrder,0,inOrder.length-1);
+    }
+
+    private Node construct(int[] preOrder,int preLo,int preHi,int[] inOrder,int inLo,int inHi){
+
+        if(preLo > preHi || inLo > inHi)
+            return null;
+
+        Node nn = new Node();
+        nn.data = preOrder[preLo];
+
+        int si = -1;
+        int nel = 0;
+        for(int i=preLo;i<=preHi;i++){
+            if(preOrder[preLo]==inOrder[i]){
+                si = i;
+                break;
+            }
+            nel++;
+        }
+
+        nn.leftChild = construct(preOrder,preLo+1,preLo+nel,inOrder,inLo,si-1);
+        nn.rightChild = construct(preOrder,preLo+nel+1,preHi,inOrder,si+1,inHi);
+
+        return nn;
+    }
+
     public void display(){
         System.out.println("-------------");
         display(root);
@@ -225,6 +254,30 @@ public class BinaryTree {
 
     }
 
+    public void inOrder(){
+        inOrder(root);
+    }
+
+    private void inOrder(Node root){
+        if(root == null)
+            return;
+        inOrder(root.leftChild);
+        System.out.print(root.data+" ");
+        inOrder(root.rightChild);
+    }
+
+    public void postOrder(){
+        postOrder(root);
+    }
+
+    private void postOrder(Node root){
+        if(root==null)
+            return;
+        postOrder(root.leftChild);
+        postOrder(root.rightChild);
+        System.out.print(root.data+" ");
+    }
+
     private class Pair{
         Node node;
         boolean isNodeVisited;
@@ -366,6 +419,56 @@ public class BinaryTree {
         }
 
         return list;
+    }
+
+    public int lca(int B, int C) {
+
+        ArrayList<Integer> ntr1 = nodeToRoot(root,B);
+        ArrayList<Integer> ntr2 = nodeToRoot(root,C);
+
+        int lst1 = ntr1.size()-1;
+        int lst2 = ntr2.size()-1;
+
+        if(lst1<=0||lst2<=0)
+            return -1;
+
+        while(lst1>=0&&lst2>=0&&ntr1.get(lst1)==ntr2.get(lst2)){
+            lst1--;
+            lst2--;
+        }
+        lst1++;
+        lst2++;
+        System.out.println(ntr1);
+        System.out.println(ntr2);
+        return ntr1.get(lst1);
+    }
+
+    private ArrayList<Integer> nodeToRoot(Node root,int target){
+
+        if(root==null){
+            return new ArrayList<>();
+        }
+
+        if(root.data == target){
+            ArrayList<Integer> br = new ArrayList<>();
+            br.add(root.data);
+            return br;
+        }
+
+        ArrayList<Integer> mr = new ArrayList<>();
+        ArrayList<Integer> l_rr = nodeToRoot(root.leftChild,target);
+        if(l_rr.size()!=0){
+            mr = l_rr;
+            mr.add(root.data);
+            return mr;
+        }
+        ArrayList<Integer> r_rr = nodeToRoot(root.rightChild,target);
+        if(r_rr.size()!=0){
+            mr = r_rr;
+            mr.add(root.data);
+            return mr;
+        }
+        return mr;
     }
 
 }
