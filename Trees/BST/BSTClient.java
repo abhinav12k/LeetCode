@@ -6,5 +6,8 @@ public class BSTClient {
         BST bst = new BST(in);
 
         bst.display();
+
+        System.out.println(bst.twoSumBinaryTree(110));
+        System.out.println(bst.twoSumBinaryTreeUsingStacks(110));
     }
 }
