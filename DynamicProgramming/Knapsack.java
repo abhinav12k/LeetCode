@@ -44,12 +44,12 @@ public class Knapsack {
         }
 
         if (wt[n - 1] > max_wt) {
-            return getMaxProfitTopDown(wt, val, max_wt, n - 1);
+            t[n][max_wt] = getMaxProfitTopDown(wt, val, max_wt, n - 1);
         } else {
-            return Math.max(val[n - 1] + getMaxProfitTopDown(wt, val, max_wt - wt[n - 1], n - 1),
+            t[n][max_wt] = Math.max(val[n - 1] + getMaxProfitTopDown(wt, val, max_wt - wt[n - 1], n - 1),
                     getMaxProfitTopDown(wt, val, max_wt, n - 1));
         }
-
+        return t[n][max_wt];
     }
 
     private static int getMaxProfitBottomUp(int[] wt, int[] val, int max_wt, int n) {
