@@ -471,4 +471,57 @@ public class BinaryTree {
         return mr;
     }
 
+    private void storeInOrderTraversal(Node root,ArrayList<Integer> arr){
+        if(root==null)
+            return;
+
+        storeInOrderTraversal(root.leftChild,arr);
+        arr.add(root.data);
+        storeInOrderTraversal(root.rightChild,arr);
+    }
+
+    private static class HeapMover{
+        int idx=1;
+    }
+
+    public void replaceEachNodeWithSumOfInorderPredecessorAndSuccessor(){
+
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(0); //for storing the predecessor of extreme left child
+
+        storeInOrderTraversal(root,arr);
+
+        arr.add(0); //for storing the successor of extreme right child
+
+        HeapMover hm = new HeapMover();
+        replaceNodesWithPredecessorAndSuccessor(root,arr,hm);
+    }
+
+    private void replaceNodesWithPredecessorAndSuccessor(Node root,ArrayList<Integer> arr,HeapMover hm){
+
+        if(root==null)
+            return;
+
+        replaceNodesWithPredecessorAndSuccessor(root.leftChild,arr,hm);
+        root.data = arr.get(hm.idx-1)+arr.get(hm.idx+1);
+        hm.idx++;
+        replaceNodesWithPredecessorAndSuccessor(root.rightChild,arr,hm);
+    }
+
+    public void diagonalTraversal(){
+
+        Queue<Node> queue = new LinkedList<>();
+
+        Node temp = root;
+        while(temp!=null || !queue.isEmpty()){
+            while(temp!=null){
+                queue.offer(temp);
+                temp = temp.rightChild;
+            }
+            temp = queue.poll();
+            System.out.print(temp.data+" ");
+            temp = temp.leftChild;
+        }
+    }
+
 }

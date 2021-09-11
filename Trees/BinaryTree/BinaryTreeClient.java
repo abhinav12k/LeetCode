@@ -40,6 +40,11 @@ public class BinaryTreeClient {
 //        System.out.println();
 //        bt.postOrder();
 
-        System.out.println(bt.lca(3,8));
+//        System.out.println(bt.lca(3,8));
+
+//        bt.replaceEachNodeWithSumOfInorderPredecessorAndSuccessor();
+//        bt.display();
+
+        bt.diagonalTraversal();
     }
 }
