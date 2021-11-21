@@ -32,24 +32,43 @@ public class GraphUsingAdjList {
         }
     }
 
-    public void bfs(int source){
+    public void bfs(int source) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(source);
 
         boolean[] visited = new boolean[vertices];
+        int[] parent = new int[vertices];
+        int[] dist = new int[vertices];
+
         visited[source] = true;
+        parent[source] = source;
+        dist[source] = 0;
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int item = queue.poll();
-            System.out.print(item +" ->");
+            System.out.print(item + " ->");
 
-            for(int nbr: nbrs.get(item)){
-                if(!visited[nbr]) {
+            for (int nbr : nbrs.get(item)) {
+                if (!visited[nbr]) {
                     queue.offer(nbr);
+                    parent[nbr] = item;
+                    dist[nbr] = dist[item] + 1;
                     visited[nbr] = true;
                 }
             }
         }
+
+        System.out.println();
+        System.out.println("----Parents----");
+        for (int nbr = 0; nbr < vertices; nbr++) {
+            System.out.println(nbr + "->" + parent[nbr]);
+        }
+
+        System.out.println("----Min Distance ----");
+        for (int nbr = 0; nbr < vertices; nbr++) {
+            System.out.println(nbr + "->" + dist[nbr]);
+        }
+        
     }
 
     public static void main(String[] args) {
@@ -65,7 +84,7 @@ public class GraphUsingAdjList {
 
         g.printAdjList();
 
-        g.bfs(0);
+        g.bfs(1);
     }
 
 }
