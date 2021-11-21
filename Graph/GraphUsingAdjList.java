@@ -32,7 +32,7 @@ public class GraphUsingAdjList {
         }
     }
 
-    public void bfs(int source) {
+    public void bfs(int source,int dest) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(source);
 
@@ -68,7 +68,18 @@ public class GraphUsingAdjList {
         for (int nbr = 0; nbr < vertices; nbr++) {
             System.out.println(nbr + "->" + dist[nbr]);
         }
-        
+
+        System.out.println("----Path-----");
+        if(dest!=-1){
+
+            int temp = dest;
+            while(temp != source){
+                System.out.print(temp + " <- ");
+                temp = parent[temp];
+            }
+            System.out.println(source);
+        }
+
     }
 
     public static void main(String[] args) {
@@ -84,7 +95,7 @@ public class GraphUsingAdjList {
 
         g.printAdjList();
 
-        g.bfs(1);
+        g.bfs(1,5);
     }
 
 }
