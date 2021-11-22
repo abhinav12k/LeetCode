@@ -82,6 +82,21 @@ public class GraphUsingAdjList {
 
     }
 
+    void dfs(int source){
+        boolean[] visited = new boolean[vertices];
+        dfsHelper(source,visited);
+    }
+
+    private void dfsHelper(int source,boolean[] visited){
+        visited[source] = true;
+        System.out.print(source+", ");
+
+        for(int nbr: nbrs.get(source)){
+            if(!visited[nbr])
+                dfsHelper(nbr,visited);
+        }
+    }
+
     public static void main(String[] args) {
 
         GraphUsingAdjList g = new GraphUsingAdjList(6);
@@ -96,6 +111,7 @@ public class GraphUsingAdjList {
         g.printAdjList();
 
         g.bfs(1,5);
+        g.dfs(1);
     }
 
 }
