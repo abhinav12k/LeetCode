@@ -97,6 +97,28 @@ public class GraphUsingAdjList {
         }
     }
 
+    boolean containsCycle(){
+
+        boolean[] visited = new boolean[vertices];
+        return dfs(1,visited,-1);
+    }
+
+    boolean dfs(int source,boolean[] visited,int parent){
+        visited[source] = true;
+        for(int nbr: nbrs.get(source)){
+            if(!visited[nbr]){
+                visited[nbr] = true;
+                boolean isCycleDetected = dfs(nbr,visited,source);
+                if(isCycleDetected){
+                    return true;
+                }
+            }else if(nbr!=parent){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         GraphUsingAdjList g = new GraphUsingAdjList(6);
@@ -112,6 +134,9 @@ public class GraphUsingAdjList {
 
         g.bfs(1,5);
         g.dfs(1);
+
+        System.out.println();
+        System.out.println(g.containsCycle());
     }
 
 }
