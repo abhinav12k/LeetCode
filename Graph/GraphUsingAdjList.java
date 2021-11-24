@@ -119,6 +119,32 @@ public class GraphUsingAdjList {
         return false;
     }
 
+    boolean checkBipartite(){
+        int[] visited = new int[vertices]; // 0 - Not visited, 1 - Visited color is 1, 2 - Visited color is 2
+
+        int color = 1;
+        boolean ans = dfs_helper(0,visited,-1,color);
+        for(int i=0;i<vertices;i++){
+            System.out.println(i+" - Color "+visited[i]);
+        }
+        return ans;
+    }
+
+    boolean dfs_helper(int node,int[] visited,int parent,int color){
+        visited[node] = color;  // 1 or 2, both mean visited
+
+        for(int nbr: nbrs.get(node)){
+            if(visited[nbr]==0){
+                boolean subprob = dfs_helper(nbr,visited,node,3-color);
+                if(!subprob)
+                    return false;
+            }else if(nbr!=parent && visited[nbr] == color){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         GraphUsingAdjList g = new GraphUsingAdjList(6);
@@ -137,6 +163,7 @@ public class GraphUsingAdjList {
 
         System.out.println();
         System.out.println(g.containsCycle());
+        System.out.println(g.checkBipartite());
     }
 
 }
