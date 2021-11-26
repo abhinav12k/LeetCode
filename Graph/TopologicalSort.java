@@ -49,6 +49,32 @@ public class TopologicalSort {
                 }
             }
         }
+
+        void topologicalSortUsingDFS(){
+            boolean[] visited = new boolean[vertices];
+            ArrayList<Integer> ordering = new ArrayList<>(vertices);
+
+            for(int i=0;i<vertices;i++) {
+                if(!visited[i])
+                    dfsHelper(i, visited, ordering);
+            }
+
+            //print the ordering
+            for(int node: ordering){
+                System.out.print(node+", ");
+            }
+        }
+
+        void dfsHelper(int node,boolean[] visited,ArrayList<Integer> ordering){
+            visited[node] = true;
+
+            for(int nbr: nbrs.get(node)){
+                if(!visited[nbr]){
+                    dfsHelper(nbr,visited,ordering);
+                }
+            }
+            ordering.add(0,node);
+        }
     }
 
     public static void main(String[] args) {
@@ -62,6 +88,8 @@ public class TopologicalSort {
         g.addEdge(4, 5);
 
         g.topologicalSortUsingBFS();
+        System.out.println();
+        g.topologicalSortUsingDFS();
     }
 
 }
