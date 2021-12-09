@@ -22,7 +22,7 @@ public class DSU_WithOptimizations {
         int findSet(int x,int[] parent){
             if(parent[x]==-1)
                 return x;
-            return findSet(parent[x],parent);
+            return parent[x] = findSet(parent[x],parent);
         }
 
         void unionSet(int x,int y,int[] parent,int[] rank){
