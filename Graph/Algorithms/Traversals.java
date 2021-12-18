@@ -8,6 +8,7 @@ public class Traversals {
 
     static class Graph {
         int v;
+        //Adjacency list
         ArrayList<ArrayList<Integer>> graph;
 
         public Graph(int vertices) {
@@ -23,6 +24,7 @@ public class Traversals {
             graph.get(v).add(u);
         }
 
+        //O(E+V)
         public int bfs(int src, int dest) {
 
             Queue<Integer> queue = new LinkedList<>();
@@ -61,6 +63,7 @@ public class Traversals {
             return dist[dest];
         }
 
+        //O(E+V)
         void dfs(int source) {
             boolean[] visited = new boolean[v];
             dfsHelper(source, visited);
