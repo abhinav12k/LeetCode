@@ -10,8 +10,10 @@ public class Trie {
 
         TrieNode[] children = new TrieNode[ALPHABET_SIZE];
         boolean isEndOfWord;
+        int num;
 
         TrieNode() {
+            num = 0;
             isEndOfWord = false;
             Arrays.fill(children, null);
         }
@@ -30,6 +32,7 @@ public class Trie {
             if (pCrawl.children[idx] == null) {
                 pCrawl.children[idx] = new TrieNode();
             }
+            pCrawl.children[idx].num++;
             pCrawl = pCrawl.children[idx];
         }
 
@@ -51,10 +54,26 @@ public class Trie {
         return pCrawl.isEndOfWord;
     }
 
+    static int countWordsWithPrefix(String prefix){
+
+        int n = prefix.length();
+
+        TrieNode pCrawl = root;
+
+        for(int i=0;i<n;i++){
+            int idx = prefix.charAt(i)-'a';
+            if(pCrawl.children[idx]==null){
+                return -1;
+            }
+            pCrawl = pCrawl.children[idx];
+        }
+
+        return pCrawl.num;
+    }
+
     public static void main(String[] args) {
 
-        String keys[] = {"the", "a", "there", "answer", "any",
-                "by", "bye", "their"};
+        String keys[] = {"gee", "geek", "geezer", "geeksforgeeks", "geekiness", "geekgod"};
 
         root = new TrieNode();
 
@@ -67,6 +86,8 @@ public class Trie {
         } else {
             System.out.println("Not Found");
         }
+
+        System.out.println(countWordsWithPrefix("geek"));
 
     }
 

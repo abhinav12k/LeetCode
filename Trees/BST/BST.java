@@ -72,7 +72,7 @@ public class BST {
         for(int i=0;i<preOrder.length;i++){
             if(preOrder[i] < firstMax)
                 return false;
-            while (stack.isEmpty() && stack.peek() < preOrder[i])
+            while (!stack.isEmpty() && stack.peek() < preOrder[i])
                 firstMax = stack.pop();
             stack.push(preOrder[i]);
         }
